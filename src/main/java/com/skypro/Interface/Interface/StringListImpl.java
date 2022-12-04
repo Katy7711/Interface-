@@ -55,7 +55,7 @@ public class StringListImpl implements StringList {
 
     @Override
     public String remove(int index) {
-        int elementIndex = indexOf(index);
+        int elementIndex = checkIndex(index);
         if (elementIndex == -1) {
             throw new IllegalArgumentException();
         }
@@ -119,10 +119,11 @@ public class StringListImpl implements StringList {
     public String[] toArray() {
         return new String[0];
     }
-    private void checkIndex (int index) {
+    private int checkIndex (int index) {
         if (item == null) {
             throw new IllegalArgumentException("Поле не может быть пустым");
         }
+        return index;
     }
     private void checkItem(String Value) {
         if (index<0|| index>=size) {
