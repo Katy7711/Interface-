@@ -169,11 +169,7 @@ public class IntegerListImpl implements IntegerList {
         }
         return -1;
     }
-    public int indexOfBinary(Integer item){
-        Integer[] array = toArray();
-        sort(array);
-        return binarySearch(array,item);
-    }
+
     }
 
 

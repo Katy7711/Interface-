@@ -1,11 +1,14 @@
 package com.skypro.Interface.Interface;
 
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import static com.skypro.Interface.Interface.IntegerListImpl.swapElements;
+import static java.util.Arrays.binarySearch;
+import static java.util.Arrays.sort;
 
 public class SortComparison {
     public static void main(String[] args) {
@@ -13,6 +16,8 @@ public class SortComparison {
         benchmarkSort(Arrays.copyOf (array, array.length), SortComparison::sortBubble);
         benchmarkSort(Arrays.copyOf (array, array.length), SortComparison::sortSelection);
         benchmarkSort(Arrays.copyOf (array, array.length), SortComparison::sortInsertion);
+        benchmarkSort(Arrays.copyOf (array, array.length), SortComparison::quickSort);
+
         long start = System.currentTimeMillis();
         sortBubble(array);
         System.out.println(System.currentTimeMillis() - start);
@@ -71,6 +76,31 @@ public class SortComparison {
         }
         return true;
     }
+
+    public static void quickSort(int[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+        }
+    }
+    private static int partition(int[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
+            }
+        }
+
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
 }
 
 
